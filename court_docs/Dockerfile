@@ -5,5 +5,5 @@ WORKDIR /code
 COPY requirements.txt /code/
 RUN pip install -r requirements.txt
 COPY . /code/
-RUN chmod +x /start_it_up.sh
-ENTRYPOINT "/start_it_up.sh"
+RUN chmod +x start_it_up.sh
+ENTRYPOINT ["/bin/bash", "start_it_up.sh"]

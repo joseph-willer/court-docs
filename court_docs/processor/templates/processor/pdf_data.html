@@ -1,0 +1,18 @@
+<h3>Header Predictions</h3>
+
+{{header_predictions}}
+{% for header_prediciton in header_predictions %}
+    <p>{{header_prediction.header}}</p>
+{% endfor %}
+
+<h3>Footer Predictions</h3>
+
+{% for footer_prediciton in footer_predictions %}
+    <p>{{footer_prediction.footer}}</p>
+{% endfor %}
+
+<h3>Pages</h3>
+
+{% for page in pages %}
+    <p>{{page}}</p>
+{% endfor %}

@@ -1,0 +1,7 @@
+<ul>
+{% for agency in agencies %}
+    <li><a href="{{agency.agency_url}}"">{{agency.name}}</a></li>
+        <block>{{agency.description}}</block>
+{% endfor %}
+{{agencies.keys}}
+</ul>

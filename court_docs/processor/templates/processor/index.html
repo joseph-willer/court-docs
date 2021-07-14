@@ -1,0 +1,28 @@
+{% if document %}
+    <table>
+        <tr>
+            <th>Token Text</th>
+            <th>Lemma</th>
+            <th>Part of Speech</th>
+            <th>Tag</th>
+            <th>Dependence</th>
+            <th>Shape</th>
+            <th>Alpha</th>
+            <th>Stop</th>
+        </tr>
+        {% for token in document %}
+            <tr>
+                <td>{{token.text}}</td>
+                <td>{{token.lemma_}}</td>
+                <td>{{token.pos_}}</td>
+                <td>{{token.tag_}}</td>
+                <td>{{token.dep_}}</td>
+                <td>{{token.shape_}}</td>
+                <td>{{token.is_alpha}}</td>
+                <td>{{token.is_stop}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+        <p>No document available.</p>
+{% endif %}

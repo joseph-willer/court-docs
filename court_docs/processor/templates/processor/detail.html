@@ -1,0 +1,9 @@
+<li><a href="{% url 'processor:document' doc.id doc.slug %}">{{ doc.num_pages }}</a></li>
+{% for page in doc.page_set.all %}
+    <div white-space="pre-wrap">{{page.text}}</div>
+{% endfor %}
+
+{% for prediction in doc.prefixsuffixprediction_set.all %}
+    <p>{{prediction.predictions}}</p>
+    
+{% endfor %}

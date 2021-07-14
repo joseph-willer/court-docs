@@ -1,0 +1,8 @@
+{% for result in results.results %}
+
+<h4><a href="{% url 'processor:document' result.id result.slug%}">{{result.title}}</a></h4>
+<p>Document Number: {{result.document_number}}</p>
+    
+    <p>{{result.excerpts}}</p>
+
+{% endfor %}

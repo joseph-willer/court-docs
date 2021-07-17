@@ -1,8 +1,9 @@
 from django.shortcuts import get_object_or_404, render
 from django.utils.text import slugify
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 from mini_clerk import extract_info as ei
 from mini_clerk import crawl
+
 
 from .models import Document, Page, Prediction, PrefixSuffixPrediction
 # Create your views here.
@@ -107,6 +108,13 @@ def save_doc(title, slug, response):
 
     return True
 
+def get_us_code(request, req_title, req_section):
+    section = crawl.getuscode(req_title, req_section)
+    if(len(section['lines'])>0):
+        return render(request, 'processor/us-code-section.html', {'title': req_title, 'section': section})
+    else:
+        return HttpResponseNotFound('whoops')
+
 def extract_pdf(request):
     pages = []
     #response = ei.extractpdf('test.pdf')
@@ -154,3 +162,5 @@ def extract_pdf(request):
         'footer_predictions': response['predictions']['footer_predictions']['one_page_predictions']
     }
     return render(request, 'processor/pdf_data.html', context)
+
+

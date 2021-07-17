@@ -16,6 +16,7 @@ services:
       - ./court_docs:/code
       - ./data/pdfs:/data/pdfs
       - ./data/tmp:/data/tmp
+      - ./data/xml_uscAll@117-26:/data/us_code
     ports:
       - "8000:8000"
     depends_on:

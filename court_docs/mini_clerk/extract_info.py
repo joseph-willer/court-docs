@@ -5,6 +5,8 @@ import tempfile
 from difflib import SequenceMatcher
 import numpy
 
+
+
 from pdfminer.pdfdocument import PDFDocument
 from pdfminer.pdfparser import PDFParser
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter

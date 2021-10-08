@@ -75,6 +75,7 @@ def save_doc(title, slug, response):
     #response = ei.extractpdf('test.pdf')
     #response = ei.extractpdf(request)
     pages = response['pages']
+    start_page_num = response['start_page_num']
     doc = Document(num_pages=len(pages), title=title, slug=slug)
     doc.save()
     #print(response['predictions']['header_predictions']['one_page_predictions'][0]['header'])
@@ -103,11 +104,9 @@ def save_doc(title, slug, response):
             predi.save()
             footer_predictions.predictions.add(predi)
     footer_predictions.save() ###!Performance
-    
     doc.save()
     for i, page in enumerate(pages):
-        doc.page_set.create(page_number=i, text=page)
-    
+        doc.page_set.create(page_number=i+int(start_page_num), text=page)
     doc.save()
 
     return True

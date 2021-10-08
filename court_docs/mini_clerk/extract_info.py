@@ -72,8 +72,9 @@ def extractpdf(uri):
             if(debug==1): print(header_predictions)
             footer_predicitons = predictFooter(uri, escaped_pages)
             if(debug==1): print(footer_predicitons)
+            start_page_num = findPageNumbers(escaped_pages)
             #print(predictFooter(uri, escaped_pages)[0])
-    return {'temp_file': temp_file , 'pages': escaped_pages, 'predictions':{'header_predictions': header_predictions, 'footer_predictions': footer_predicitons}}
+    return {'temp_file': temp_file , 'pages': escaped_pages, 'predictions':{'header_predictions': header_predictions, 'footer_predictions': footer_predicitons}, 'start_page_num': start_page_num}
         
 
 def predictHeader(filename, pages):
@@ -306,6 +307,10 @@ def findPageNumbers(pages):
                                 startPageNums.remove(startPageNum)
         pageNums = tempPageNums
     print(startPageNums)
+    if(len(startPageNums)==1):
+        return startPageNums[0]
+    else:
+        return 0
 
 
 def sizeUp(pages):

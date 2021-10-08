@@ -106,6 +106,7 @@ def save_doc(title, slug, response):
     footer_predictions.save() ###!Performance
     doc.save()
     for i, page in enumerate(pages):
+        ei.find_dates(page)
         doc.page_set.create(page_number=i+int(start_page_num), text=page)
     doc.save()
 

@@ -1,9 +1,16 @@
-<li><a href="{% url 'processor:document' doc.id doc.slug %}">{{ doc.num_pages }}</a></li>
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'processor/style.css' %}">
+
+<li><a href="{% url 'processor:document' doc.id doc.slug %}">{{ doc.title }}</a></li>
 {% for page in doc.page_set.all %}
-    <div white-space="pre-wrap">{{page.text}}</div>
+    <div class="page" white-space="pre-wrap"><pre>{{page.text}}</pre></div>
+    <p>----------------------</p>
 {% endfor %}
 
-{% for prediction in doc.prefixsuffixprediction_set.all %}
-    <p>{{prediction.predictions}}</p>
+{% for predictionset in doc.prefixsuffixprediction_set.all %}
+    {% for prediction in predictionset.predictions.all %}
+        <p> {{prediction}} </p>
+    {% endfor %}
     
 {% endfor %}

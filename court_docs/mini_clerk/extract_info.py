@@ -124,7 +124,7 @@ def predictHeader(filename, pages):
                         prediction['count'] = prediction['count'] + 1
 
 
-####Sorting
+    ####Sorting
     length_sorted_one_page_predictions = sorted(one_page_predictions, key = lambda i: (len(i['header'])), reverse=True)
     if(debug==1): print(length_sorted_one_page_predictions)
     for i, prediction in enumerate(length_sorted_one_page_predictions):
@@ -226,7 +226,7 @@ def predictFooter(filename, pages):
                         prediction['count'] = prediction['count'] + 1
 
 
-####Sorting
+    ####Sorting
     length_sorted_one_page_predictions = sorted(one_page_predictions, key = lambda i: (len(i['footer'])), reverse=True)
     if(debug==1): print(length_sorted_one_page_predictions)
     for i, prediction in enumerate(length_sorted_one_page_predictions):
@@ -272,6 +272,40 @@ def predictFooter(filename, pages):
         if(odd_count_sorted_two_page_predictions[0]['count'] >= (2+len(pages)//4)):
             if(debug==1): print('footer', odd_count_sorted_two_page_predictions[0]['footer'], odd_count_sorted_two_page_predictions[0]['count'])
     return {'one_page_predictions': count_sorted_one_page_predictions, 'two_page_predictions': {'even': even_count_sorted_two_page_predictions, 'odd': odd_count_sorted_two_page_predictions}}
+
+
+def checkHeaderForVariables(pages, predictions):
+    for i, prediction in enumerate(predictions):
+        if(i<3):
+            for i, page in enumerate(pages):
+                #print(prediction.text)
+                #print(i)
+                #print(prediction.text)
+                #print(page.text[0:250])
+                headerlocation = page.text.find(prediction.text)
+                #print(headerlocation)
+                #print(page.text.find('\n'))
+            #print(predictions)
+    return {'headerlocation': "test"}
+
+def findPageNumbers(pages):
+    pageNum = 0
+    startPageNums = []
+    pageNums = []
+
+    for i, page in enumerate(pages):
+        tempPageNums = re.findall(r'\d+', page.text[0:300])
+        for pageNum in pageNums:
+            for tempPageNum in tempPageNums:
+                if(int(pageNum) == int(tempPageNum)-1):
+                    if(i==1):
+                        startPageNums.append(pageNum)
+                    else:
+                        for startPageNum in startPageNums:
+                            if((int(startPageNum) + i) not in map(lambda x: int(x), tempPageNums)):
+                                startPageNums.remove(startPageNum)
+        pageNums = tempPageNums
+    print(startPageNums)
 
 
 def sizeUp(pages):

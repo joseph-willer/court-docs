@@ -37,6 +37,10 @@ def find_dates(request):
 
 def detail(request, doc_id, slug):
     doc = get_object_or_404(Document, pk=doc_id)
+    pages = Page.objects.filter(document_id=doc_id)
+    predictions = Prediction.objects.filter(prefixsuffixprediction__document_id=doc_id)
+    ei.checkHeaderForVariables(pages, predictions)
+    ei.findPageNumbers(pages)
     return render(request, 'processor/detail.html', {'doc': doc})
 
 def document_list(request):

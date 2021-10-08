@@ -19,7 +19,7 @@ class Prediction(models.Model):
     score = models.IntegerField()
 
     def __str__(self):
-        return str(self.score) + " " + self.text
+        return self.text
 
 class PrefixSuffixPrediction(models.Model):
     document = models.ForeignKey(Document, on_delete=models.CASCADE)

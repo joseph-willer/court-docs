@@ -25,7 +25,7 @@ SECRET_KEY = 'idkew8=0bv0lj_kap2le2$=$@k-(hhq!a7%qu=p+z$xrw87nes'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["malthus.local"]
 
 
 # Application definition

@@ -295,7 +295,7 @@ def findPageNumbers(pages):
     pageNums = []
 
     for i, page in enumerate(pages):
-        tempPageNums = re.findall(r'\d+', page.text[0:300])
+        tempPageNums = re.findall(r'\d+', page[0:300])
         for pageNum in pageNums:
             for tempPageNum in tempPageNums:
                 if(int(pageNum) == int(tempPageNum)-1):

@@ -40,7 +40,7 @@ def detail(request, doc_id, slug):
     pages = Page.objects.filter(document_id=doc_id)
     predictions = Prediction.objects.filter(prefixsuffixprediction__document_id=doc_id)
     ei.checkHeaderForVariables(pages, predictions)
-    ei.findPageNumbers(pages)
+    #ei.findPageNumbers(pages)
     return render(request, 'processor/detail.html', {'doc': doc})
 
 def document_list(request):

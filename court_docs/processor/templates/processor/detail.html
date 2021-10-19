@@ -1,10 +1,11 @@
-{% load static %}
+{% extends "processor/base.html" %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'processor/style.css' %}">
+{% block content %}
+<h5><a href="{% url 'processor:document' doc.id doc.slug %}">{{ doc.title }}</a></h5>
+<h6> <a href="{% url 'processor:pdf_download' doc.slug %}" target="_blank">View PDF</a></h6>
 
-<li><a href="{% url 'processor:document' doc.id doc.slug %}">{{ doc.title }}</a></li>
 {% for page in doc.page_set.all %}
-    <div class="page" white-space="pre-wrap"><pre>{{page.text}}</pre></div>
+    <div class="page" ><pre>{{page.text}}</pre></div>
     <p>----------------------</p>
 {% endfor %}
 
@@ -12,5 +13,5 @@
     {% for prediction in predictionset.predictions.all %}
         <p> {{prediction}} </p>
     {% endfor %}
-    
 {% endfor %}
+{% endblock %}

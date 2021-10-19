@@ -3,6 +3,7 @@ from django.utils.text import slugify
 from django.http import HttpResponse, HttpResponseNotFound
 from mini_clerk import extract_info as ei
 from mini_clerk import crawl
+import os
 
 
 from .models import Document, Page, Prediction, PrefixSuffixPrediction
@@ -40,6 +41,8 @@ def detail(request, doc_id, slug):
     pages = Page.objects.filter(document_id=doc_id)
     predictions = Prediction.objects.filter(prefixsuffixprediction__document_id=doc_id)
     ei.checkHeaderForVariables(pages, predictions)
+    for page in pages:
+        ei.strip_whitespace(page.text)
     #ei.findPageNumbers(pages)
     return render(request, 'processor/detail.html', {'doc': doc})
 
@@ -53,8 +56,14 @@ def get_agencies(request):
     print(agencies[0]['json_url'])
     return render(request, 'processor/agencies.html', {'agencies': agencies})
 
+def search(request):
+    recent_searches = ["test", "banana", "foo", "baz", "bar"]
+    return render(request, 'processor/search.html', {'recent_searches': recent_searches})
+
+
 def search_for_documents(request, search):
     response = crawl.searchdocs(search)
+
     results = response.json()
     for result in results['results']:
         slug = slugify(result['title'][0:200])
@@ -67,7 +76,15 @@ def search_for_documents(request, search):
         document = Document.objects.filter(slug=slug)
         result['id'] = document[0].id
     #print(results['results'])
-    return render(request, 'processor/search_results.html', {'results': results})
+    return render(request, 'processor/search_results.html', {'results': results, 'search_query': search})
+
+def download_pdf(request, slug):
+    file_path = os.path.join('/data/pdfs/', slug+'.pdf')    
+    if os.path.exists(file_path):    
+        with open(file_path, 'rb') as fh:    
+            response = HttpResponse(fh.read(), content_type="application/pdf")    
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)    
+            return response
 
 
 def save_doc(title, slug, response):

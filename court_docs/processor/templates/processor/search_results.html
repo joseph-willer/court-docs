@@ -1,3 +1,9 @@
+{% extends "processor/base.html" %}
+
+{% block content %}
+
+{% include 'processor/search_field.html' with search_query=search_query recent_searches=recent_searches%}
+{{recent_searches}}
 {% for result in results.results %}
 
 <h4><a href="{% url 'processor:document' result.id result.slug%}">{{result.title}}</a></h4>
@@ -6,3 +12,5 @@
     <p>{{result.excerpts}}</p>
 
 {% endfor %}
+
+{% endblock %}

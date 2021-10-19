@@ -12,7 +12,7 @@ def getagencies():
     return response
 
 def searchdocs(search):
-    endpoint = "documents.json?per_page=20&conditions[term]="+search
+    endpoint = "documents.json?per_page=3&conditions[term]="+search
     response = requests.get(base_url+endpoint)
     return response
 

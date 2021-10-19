@@ -64,7 +64,7 @@ def extractpdf(uri):
             #print(pages)
             escaped_pages = []
             for page in pages:
-                escaped_pages.append(str(page))
+                escaped_pages.append(strip_whitespace(str(page)))
 
     #        for i, page in enumerate(pages):
     #           print(i)
@@ -370,3 +370,28 @@ def find_dates(sentence):
 def find_defined_terms(sentence):
     matcher = Matcher(nlp.vocab)
     pattern = [{"label": "DEFINED", "pattern": [{}]}]
+
+def strip_whitespace(page):
+    stripped_page = ""
+    doc = nlp(page)
+    assert doc.has_annotation("SENT_START")
+    paragraph_break_starts = []
+    paragraph_break_matches = re.finditer(r'\n\n', page)
+    for paragraph_break_match in paragraph_break_matches:
+        paragraph_break_starts.append(paragraph_break_match.end(0))
+    for sent in doc.sents:
+        paragraph_break_found = False
+        if(len(sent.text)>75):
+            start_len = 75
+        else:
+            start_len = len(sent.text)
+        for paragraph_break_start in paragraph_break_starts:
+            if(sent.text[0:start_len]==page[paragraph_break_start:paragraph_break_start+start_len]):
+                stripped_page = stripped_page + "\n\n" + " ".join(sent.text.split())
+                paragraph_break_found = True
+        if(paragraph_break_found == False):
+            stripped_page = stripped_page + " " + " ".join(sent.text.split())
+    print(stripped_page)
+    return stripped_page
+    
+

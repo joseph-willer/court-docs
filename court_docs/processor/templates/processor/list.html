@@ -1,6 +1,10 @@
-<ul>
+{% extends "processor/base.html" %}
+
+{% block content %}
+<h5>Documents: </h5>
 {% for document in documents %}
-    <li>{{document.num_pages}}</li>
+    <h5><a href="{% url 'processor:document' document.id document.slug%}">{{document.title}}</a></h5>
+    <h6>Page Count: {{document.num_pages}}</h6>
 {% endfor %}
-</ul>
+{% endblock %}
 

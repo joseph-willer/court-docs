@@ -5,7 +5,7 @@
 <h6> <a href="{% url 'processor:pdf_download' doc.slug %}" target="_blank">View PDF</a></h6>
 
 {% for page in doc.page_set.all %}
-    <div class="page" ><pre>{{page.text}}</pre></div>
+    <div class="page" >{{page.text}}</div>
     <p>----------------------</p>
 {% endfor %}
 

@@ -2,6 +2,7 @@
     margin-left: 40;
     word-wrap: break-word;
     hyphens: auto;
+    white-space: pre-wrap;
 }
 
 #sidebar {

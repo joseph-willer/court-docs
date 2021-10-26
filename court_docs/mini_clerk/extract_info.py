@@ -4,6 +4,8 @@ import sys
 import tempfile
 from difflib import SequenceMatcher
 import numpy
+import camelot
+import pandas
 
 
 
@@ -38,7 +40,10 @@ def extractpdf(uri):
     #for filename in os.listdir(test_dir):
     if(uri.endswith('.pdf') or uri.endswith('.PDF')):
         print(uri)
+        dfs = camelot.read_pdf(uri, stream=True)
+        print(len(dfs))
         with open(uri, "rb") as file:
+
             laparams = LAParams()
             # Create a PDF resource manager object that stores shared resources.
             rsrcmgr = PDFResourceManager()

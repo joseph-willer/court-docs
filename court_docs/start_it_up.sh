@@ -4,7 +4,7 @@
 
 echo "is this thing on"
 
-#python -m spacy download en_core_web_md
+python -m spacy download en_core_web_md
 
 echo "loaded en_core_web_md"
 

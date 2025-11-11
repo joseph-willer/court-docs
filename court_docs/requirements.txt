@@ -9,3 +9,4 @@ numpy
 camelot-py
 pandas
 opencv-python
+pdfminer.six>=20251107 # not directly required, pinned by Snyk to avoid a vulnerability
